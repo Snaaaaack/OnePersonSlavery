@@ -14,9 +14,7 @@ public class PlayerController : MonoBehaviour {
 
         Color tileColor = collision.gameObject.GetComponent<Transform>().GetChild(0).GetComponent<Renderer>().material.GetColor("_Color");
         Color playerColor = transform.GetComponent<Renderer>().material.GetColor("_Color");
-        transform.GetComponent<Renderer>().material.SetColor("_Color", new Color(tileColor.r + playerColor.r, tileColor.g + playerColor.g, tileColor.b + playerColor.b));
-
-       // collision.gameObject.GetComponent<Transform>().GetChild(0).GetComponent<Renderer>().material.SetColor("_Color", new Color(0, 0, 0));
+        transform.GetComponent<Renderer>().material.SetColor("_Color",addColor(tileColor, playerColor));
         
     }
 
@@ -27,7 +25,7 @@ public class PlayerController : MonoBehaviour {
         rb = GetComponent<Rigidbody>();
         rb.AddForce(transform.right * 100);
         
-        map = GameObject.Find("Tiles").GetComponent<MapRotation>();
+        map = GameObject.Find("Area").GetComponent<MapRotation>();
 
         transform.GetComponent<Renderer>().material.SetColor("_Color", new Color(0, 0, 0));
     }
