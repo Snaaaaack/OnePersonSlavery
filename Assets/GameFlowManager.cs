@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class GameFlowManager : MonoBehaviour {
-
     public enum State { Init, Start, Playing, Clear, Over };
-
+    private Transform player;
     private State state = State.Init;
     public State currentState {
         get { return state; }
@@ -14,6 +13,7 @@ public class GameFlowManager : MonoBehaviour {
 
     // Use this for initialization
     void Start() {
+        player = GameObject.Find("Player").GetComponent<Transform>();
         toState(State.Start);
     }
 
@@ -34,7 +34,10 @@ public class GameFlowManager : MonoBehaviour {
 
     private void onStatePlaying() {
         Debug.Log(state);
-        toState(State.Over);
+
+        if (player.position.y < -5) {
+            toState(State.Over);
+        }
     }
 
     private void onStateClear() {
@@ -43,7 +46,10 @@ public class GameFlowManager : MonoBehaviour {
 
     private void onStateOver() {
         Debug.Log(state);
-        toState(State.Clear);
+
+        player.GetComponent<Renderer>().material.SetColor("_Color", new Color(1.0f, 1.0f, 1.0f));
+        player.position = new Vector3(0, 5, 0);
+        toState(State.Playing);
     }
     
     public void toState(State s) {

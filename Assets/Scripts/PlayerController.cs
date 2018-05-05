@@ -35,7 +35,7 @@ public class PlayerController : MonoBehaviour {
 
     void Start() {
         rb = GetComponent<Rigidbody>();
-       // rb.AddForce(transform.right * 100);
+        rb.AddForce(transform.right * 100);
         map = GameObject.Find("Area").GetComponent<MapRotation>();
 
         transform.GetComponent<Renderer>().material.SetColor("_Color", new Color(1.0f, 1.0f, 1.0f));
@@ -47,10 +47,13 @@ public class PlayerController : MonoBehaviour {
             c.r -= 0.25f;
         else if (c.r < tile.r)
             c.r += 0.25f;
+
         if (c.g > tile.g)
             c.g -= 0.25f;
         else if (c.g < tile.g)
             c.g += 0.25f;
+
+        c.b = 0.5f;
         return c;
     }
 }
