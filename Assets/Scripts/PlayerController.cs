@@ -9,8 +9,6 @@ public class PlayerController : MonoBehaviour {
     private int count;
     private void OnCollisionEnter(Collision collision) {
         Vector3 up = new Vector3(0, 500, 0);
-        //rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
-
         if (inCollision)
             return;
         rb.AddForce(up);
@@ -38,10 +36,15 @@ public class PlayerController : MonoBehaviour {
         rb.AddForce(transform.right * 100);
         map = GameObject.Find("Area").GetComponent<MapRotation>();
 
-        transform.GetComponent<Renderer>().material.SetColor("_Color", new Color(1.0f, 1.0f, 1.0f));
+		Reset();
     }
 
-    private Color addColor(Color tile, Color player) {
+	public void Reset() {
+		transform.position = new Vector3(0, 5, 0);
+		transform.GetComponent<Renderer>().material.SetColor("_Color", new Color(1.0f, 1.0f, 1.0f));
+	}
+
+	private Color addColor(Color tile, Color player) {
         Color c = player;
         if (c.r > tile.r)
             c.r -= 0.25f;
