@@ -1,0 +1,7 @@
+map_no/mapdata[0]mapdata[1] .....
+
+mapdata - 0: disable, 1~9: color
+
+ex)
+0/111111122222223333333
+1/012312304564560789789
