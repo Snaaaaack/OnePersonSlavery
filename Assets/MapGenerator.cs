@@ -40,9 +40,9 @@ public class MapGenerator : MonoBehaviour {
         for (int i = 0; i < MapSize; i++) {
             MapData[i] = int.Parse(input.Substring(i, 1));
         }
-    }
+    } 
 
-    void ColorMap() {
+    public void ColorMap() {
         int area, tile;
         for (int i = 0; i < MapSize; i++) {
             area = i / 7;

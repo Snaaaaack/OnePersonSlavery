@@ -6,11 +6,16 @@ using UnityEngine.UI;
 public class GameFlowManager : MonoBehaviour {
     public enum State { Init, Start, Main, Playing, Clear, Result, Over };
     private Transform player;
+    private GameObject map;
+    private CameraController Camera;
+    private Rigidbody rb;
     private State state = State.Init;
 
+    public int stageCount;
 	public Button startButton;
-	public Button resultButton;
+	public Button endButton;
 	public Button mainButton;
+    public Button stage;
 
 	public State currentState {
         get { return state; }
@@ -19,12 +24,24 @@ public class GameFlowManager : MonoBehaviour {
     // Use this for initialization
     void Start() {
         player = GameObject.Find("Player").GetComponent<Transform>();
-		startButton.GetComponent<Button>().onClick.AddListener(onClickStart);
-		resultButton.GetComponent<Button>().onClick.AddListener(onClickResult);
+        Camera = GameObject.Find("Main Camera").GetComponent<CameraController>();
+        rb = player.GetComponent<Rigidbody>();
+        map = GameObject.Find("Map");
+        startButton.GetComponent<Button>().onClick.AddListener(onClickStart);
+		endButton.GetComponent<Button>().onClick.AddListener(onClickEnd);
 		mainButton.GetComponent<Button>().onClick.AddListener(onClickMain);
+        stage.GetComponent<Button>().onClick.AddListener(onClickStage);
+        for (int i = 0; i < stageCount; i++) {
+
+        }
+
+        Camera.SetCameraToStart();
+
 		player.gameObject.SetActive(false);
-		resultButton.gameObject.SetActive(false);
+		endButton.gameObject.SetActive(false);
 		mainButton.gameObject.SetActive(false);
+        stage.gameObject.SetActive(false);
+
 		toState(State.Start);
     }
 
@@ -40,19 +57,19 @@ public class GameFlowManager : MonoBehaviour {
     }
 
 	private void onClickStart() {
-		player.gameObject.SetActive(true);
-		player.GetComponent<PlayerController>().Reset();
-
 		startButton.gameObject.SetActive(false);
-		resultButton.gameObject.SetActive(true);
+		endButton.gameObject.SetActive(false);
+        stage.gameObject.SetActive(true);
 
-		toState(State.Playing);
+        Camera.SetCameraToMain();
+
+		toState(State.Main);
 	} 
 	
-	private void onClickResult() {
-		resultButton.gameObject.SetActive(false);
+	private void onClickEnd() {
+		endButton.gameObject.SetActive(false);
 		mainButton.gameObject.SetActive(true);
-		player.gameObject.SetActive(false);
+		player.gameObject.SetActive(false); 
 		toState(State.Result);
 	}
 
@@ -62,9 +79,18 @@ public class GameFlowManager : MonoBehaviour {
 		toState(State.Main);
 	}
 
+    private void onClickStage() {
+        stage.gameObject.SetActive(false);
+
+        player.gameObject.SetActive(true);
+        player.GetComponent<PlayerController>().Reset();
+
+        Camera.SetCameraToPlayer();
+        toState(State.Playing);
+    }
+
     private void onStateStart() {
         Debug.Log(state);
-        toState(State.Main);
     }
 
 	private void onStateMain() {
@@ -91,6 +117,13 @@ public class GameFlowManager : MonoBehaviour {
         Debug.Log(state);
 
 		player.GetComponent<PlayerController>().Reset();
+        for(int i = 0; i < map.transform.childCount; i++) {
+            for(int j = 0; j < map.transform.GetChild(i).childCount; j++)
+                map.transform.GetChild(i).GetChild(j).gameObject.SetActive(true);
+        }
+        map.GetComponent<MapGenerator>().ColorMap();
+        
+        rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
         toState(State.Playing);
     }
     

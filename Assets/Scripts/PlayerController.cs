@@ -18,7 +18,8 @@ public class PlayerController : MonoBehaviour {
         Color tileColor = collision.gameObject.GetComponent<Transform>().GetChild(0).GetComponent<Renderer>().material.GetColor("_Color");
         Color playerColor = transform.GetComponent<Renderer>().material.GetColor("_Color");
         transform.GetComponent<Renderer>().material.SetColor("_Color",addColor(tileColor, playerColor));
-        
+
+        collision.gameObject.SetActive(false);
     }
 
     void FixedUpdate () {
@@ -33,8 +34,8 @@ public class PlayerController : MonoBehaviour {
 
     void Start() {
         rb = GetComponent<Rigidbody>();
-        rb.AddForce(transform.right * 100);
-        map = GameObject.Find("Area").GetComponent<MapRotation>();
+        rb.AddForce(transform.right * 300);
+        map = GameObject.Find("Map").GetComponent<MapRotation>();
 
 		Reset();
     }
