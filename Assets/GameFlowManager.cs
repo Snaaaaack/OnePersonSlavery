@@ -12,9 +12,9 @@ public class GameFlowManager : MonoBehaviour {
     private State state = State.Init;
 
     public int stageCount;
-	public Button startButton;
+	//public Button startButton;
 	public Button endButton;
-	public Button mainButton;
+	//public Button mainButton;
     public Button stage;
 
 	public State currentState {
@@ -27,19 +27,20 @@ public class GameFlowManager : MonoBehaviour {
         Camera = GameObject.Find("Main Camera").GetComponent<CameraController>();
         rb = player.GetComponent<Rigidbody>();
         map = GameObject.Find("Map");
-        startButton.GetComponent<Button>().onClick.AddListener(onClickStart);
+        //startButton.GetComponent<Button>().onClick.AddListener(onClickStart);
 		endButton.GetComponent<Button>().onClick.AddListener(onClickEnd);
-		mainButton.GetComponent<Button>().onClick.AddListener(onClickMain);
+		//mainButton.GetComponent<Button>().onClick.AddListener(onClickMain);
         stage.GetComponent<Button>().onClick.AddListener(onClickStage);
         for (int i = 0; i < stageCount; i++) {
 
         }
 
-        Camera.SetCameraToStart();
+        //Camera.SetCameraToStart();
+        Camera.SetCameraToPlayer();
 
 		player.gameObject.SetActive(false);
 		endButton.gameObject.SetActive(false);
-		mainButton.gameObject.SetActive(false);
+		//mainButton.gameObject.SetActive(false);
         stage.gameObject.SetActive(false);
 
 		toState(State.Start);
@@ -57,25 +58,25 @@ public class GameFlowManager : MonoBehaviour {
     }
 
 	private void onClickStart() {
-		startButton.gameObject.SetActive(false);
+		//startButton.gameObject.SetActive(false);
 		endButton.gameObject.SetActive(false);
         stage.gameObject.SetActive(true);
 
-        Camera.SetCameraToMain();
+        //Camera.SetCameraToMain();
 
 		toState(State.Main);
 	} 
 	
 	private void onClickEnd() {
 		endButton.gameObject.SetActive(false);
-		mainButton.gameObject.SetActive(true);
+		//mainButton.gameObject.SetActive(true);
 		player.gameObject.SetActive(false); 
 		toState(State.Result);
 	}
 
 	private void onClickMain() {
-		mainButton.gameObject.SetActive(false);
-		startButton.gameObject.SetActive(true);
+		//mainButton.gameObject.SetActive(false);
+		//startButton.gameObject.SetActive(true);
 		toState(State.Main);
 	}
 

@@ -5,14 +5,17 @@ using UnityEngine;
 public class CameraController : MonoBehaviour {
     public GameObject player;
     private Vector3 offset;
-    private GameObject start;
-    private GameObject main;
+    //private GameObject start;
+    //private GameObject main;
     GameFlowManager manager;
 
 	void Start () {
         manager = GameObject.Find("GameManager").GetComponent<GameFlowManager>();
+        /*
         start = GameObject.Find("Start");
         main = GameObject.Find("Main");
+        */
+        SetCameraToPlayer();
     }
 
     // Update is called once per frame
@@ -26,15 +29,17 @@ public class CameraController : MonoBehaviour {
         }
 	}
 
-    public void SetCameraToPlayer() {
+    public void SetCameraToPlayer() { 
+        /*
         start.SetActive(false);
         main.SetActive(false);
+        */
         transform.position = new Vector3(-5, 10, -5);
         offset = transform.position - player.transform.position;
         offset.y += 10;
         transform.LookAt(new Vector3(0, 0, 0));
     }
-
+    /*
     public void SetCameraToStart() {
         start.SetActive(true);
         main.SetActive(false);
@@ -50,5 +55,5 @@ public class CameraController : MonoBehaviour {
         transform.position = new Vector3(0, -30, 0);
         transform.LookAt(main.transform);
     }
-    
+    */
 }
