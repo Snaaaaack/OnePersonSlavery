@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class SceneManagement : MonoBehaviour {
+    private int Stage;
 
     public void SwitchToTitle() {
         SceneManager.LoadScene(0);
@@ -14,6 +15,11 @@ public class SceneManagement : MonoBehaviour {
     }
 
     public void SwitchToPlaying() {
+        //deprecated
+        SceneManager.LoadScene(2);
+    }
+
+    public void LoadStage() {
         SceneManager.LoadScene(2);
     }
 }

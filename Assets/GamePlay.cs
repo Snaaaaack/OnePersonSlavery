@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using System.IO;
 
 public class GamePlay : MonoBehaviour {
     private Transform player;
@@ -26,6 +27,10 @@ public class GamePlay : MonoBehaviour {
     }
     
     public void ClearGame() {
+        int Stage = 0; //needs to acquire data
+        FileStream fs = new FileStream("Assets\\Data\\level.dat", FileMode.OpenOrCreate, FileAccess.ReadWrite);
+        fs.Seek(Stage, SeekOrigin.Current);
+        fs.WriteByte(1);
         SceneManager.LoadScene(3);
     }
 
