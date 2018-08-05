@@ -7,10 +7,13 @@ public class MapGenerator : MonoBehaviour {
     public static int MapSize = 21;
     private int[] MapData;
     private Color[] ColorIndex;
+    private int Stage;
     // Use this for initialization
     void Start() {
+        Stage = Data.Stage;
         MapData = new int[MapSize];
         InitColor();
+        //ParseMap(Stage);
         ParseMap(0);
         ColorMap();
     }
@@ -32,6 +35,9 @@ public class MapGenerator : MonoBehaviour {
     void ParseMap(int index) {
         FileStream fs = new FileStream("Assets\\Data\\map.txt", FileMode.Open, FileAccess.Read);
         StreamReader sr = new StreamReader(fs);
+
+        Debug.Log("Now Loading stage:");
+        Debug.Log(Stage);
 
         for (int i = 0; i < index - 1; i++)
             sr.ReadLine();

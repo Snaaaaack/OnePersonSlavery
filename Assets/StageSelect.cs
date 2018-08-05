@@ -21,16 +21,11 @@ public class StageSelect : MonoBehaviour {
 
     public void Create(int i) {
         GameObject button = Instantiate(buttonPrefab);
-
         button.transform.SetParent(panel.transform);
         //button.GetComponent<Button>().onClick.AddListener(OnClick);
         button.transform.GetChild(0).GetComponent<Text>().text = i.ToString();
-
+        button.transform.name = i.ToString();
         RectTransform rt = button.GetComponent<RectTransform>();
         rt.anchoredPosition = new Vector2(-300 + 100 * i, 100);
-    }
-
-    void OnClick() {
-        Debug.Log("Clicked!");
     }
 }

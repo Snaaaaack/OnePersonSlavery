@@ -27,10 +27,10 @@ public class GamePlay : MonoBehaviour {
     }
     
     public void ClearGame() {
-        int Stage = 0; //needs to acquire data
-        FileStream fs = new FileStream("Assets\\Data\\level.dat", FileMode.OpenOrCreate, FileAccess.ReadWrite);
+        int Stage = Data.Stage;
+        FileStream fs = new FileStream("Assets\\Data\\level.txt", FileMode.OpenOrCreate, FileAccess.ReadWrite);
         fs.Seek(Stage, SeekOrigin.Current);
-        fs.WriteByte(1);
+        fs.WriteByte(0x01);
         SceneManager.LoadScene(3);
     }
 

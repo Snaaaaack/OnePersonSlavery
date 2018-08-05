@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class SceneManagement : MonoBehaviour {
@@ -13,13 +14,10 @@ public class SceneManagement : MonoBehaviour {
     public void SwitchToMain() {
         SceneManager.LoadScene(1);
     }
-
-    public void SwitchToPlaying() {
-        //deprecated
-        SceneManager.LoadScene(2);
-    }
-
-    public void LoadStage() {
+    
+    public void LoadStage(Button button) {
+        int id = int.Parse(button.name);
+        Data.Stage = id;
         SceneManager.LoadScene(2);
     }
 }
