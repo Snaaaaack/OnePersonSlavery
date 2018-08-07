@@ -27,11 +27,18 @@ public class GamePlay : MonoBehaviour {
     }
     
     public void ClearGame() {
-        int Stage = Data.Stage;
-        FileStream fs = new FileStream("Assets\\Data\\level.txt", FileMode.OpenOrCreate, FileAccess.ReadWrite);
-        fs.Seek(Stage, SeekOrigin.Current);
-        fs.WriteByte(0x01);
+        SaveData(Data.Stage);
         SceneManager.LoadScene(3);
+    }
+
+    private void SaveData(int stage) {
+        FileStream fs = new FileStream("Assets\\Data\\level.txt", FileMode.Open, FileAccess.ReadWrite);
+
+        Debug.Log("Saving clear data...");
+        
+        fs.Seek(stage, SeekOrigin.Begin);
+        fs.WriteByte((byte)'1');
+        fs.Close();
     }
 
     private void GameOver() {

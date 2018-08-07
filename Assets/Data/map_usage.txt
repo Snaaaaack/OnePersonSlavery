@@ -1,4 +1,4 @@
-map_no/mapdata[0]mapdata[1] .....
+map_no/mapdata[0]mapdata[1] ...../destarea-desttile
 
 mapdata - 0: disable, 1~9: color
 

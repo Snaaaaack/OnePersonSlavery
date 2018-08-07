@@ -4,7 +4,7 @@ using UnityEngine;
 
 public static class Data {
     private static int stage;
-    private static bool[] stagedata;
+    private static bool[] stagedata = new bool[6];
 
     public static int Stage {
         get { return stage; }

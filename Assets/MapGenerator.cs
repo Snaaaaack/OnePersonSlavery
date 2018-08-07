@@ -8,19 +8,21 @@ public class MapGenerator : MonoBehaviour {
     private int[] MapData;
     private Color[] ColorIndex;
     private int Stage;
+    private Vector2Int dest;
     // Use this for initialization
     void Start() {
         Stage = Data.Stage;
         MapData = new int[MapSize];
         InitColor();
-        //ParseMap(Stage);
-        ParseMap(0);
+        ParseMap(Stage);
         ColorMap();
+        HighlightDest();
     }
-
-    // Update is called once per frame
-    void Update() {
-
+    
+    void HighlightDest() {
+        Vector3 pos = transform.GetChild(dest.x).GetChild(dest.y).position;
+        pos.y = -1;
+        transform.GetChild(dest.x).GetChild(dest.y).position = pos;
     }
 
     void InitColor() {
@@ -42,10 +44,15 @@ public class MapGenerator : MonoBehaviour {
         for (int i = 0; i < index - 1; i++)
             sr.ReadLine();
 
-        string input = sr.ReadLine().Split('/')[1];
-        for (int i = 0; i < MapSize; i++) {
-            MapData[i] = int.Parse(input.Substring(i, 1));
-        }
+        string[] input = sr.ReadLine().Split('/');
+        for (int i = 0; i < MapSize; i++) 
+            MapData[i] = int.Parse(input[1].Substring(i, 1));
+        
+        dest.x = int.Parse(input[2].Substring(0, 1));
+        dest.y = int.Parse(input[2].Substring(2, 1));
+
+        sr.Close();
+        fs.Close();
     } 
 
     public void ColorMap() {

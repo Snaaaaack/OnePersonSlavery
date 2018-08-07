@@ -14,9 +14,13 @@ public class SceneManagement : MonoBehaviour {
     public void SwitchToMain() {
         SceneManager.LoadScene(1);
     }
-    
+
     public void LoadStage(Button button) {
         int id = int.Parse(button.name);
+
+        if (!Data.StageData[id - 1])
+            return;
+
         Data.Stage = id;
         SceneManager.LoadScene(2);
     }
