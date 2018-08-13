@@ -32,7 +32,9 @@ public class GamePlay : MonoBehaviour {
     }
 
     private void SaveData(int stage) {
-        FileStream fs = new FileStream("Assets\\Data\\level.txt", FileMode.Open, FileAccess.ReadWrite);
+        string filepath = Application.persistentDataPath + "/level.txt";
+        FileStream fs = new FileStream(filepath, FileMode.Open, FileAccess.ReadWrite);
+        //FileStream fs = new FileStream("Assets\\Data\\level.txt", FileMode.Open, FileAccess.ReadWrite);
 
         Debug.Log("Saving clear data...");
         

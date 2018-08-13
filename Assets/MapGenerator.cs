@@ -35,7 +35,19 @@ public class MapGenerator : MonoBehaviour {
     }
 
     void ParseMap(int index) {
-        FileStream fs = new FileStream("Assets\\Data\\map.txt", FileMode.Open, FileAccess.Read);
+        string filepath = Application.persistentDataPath + "/map.txt";
+        if (!File.Exists(filepath)) {
+            string[] mapdata = {
+                "1/112345614567890000000/1-0",
+                "2/112345614567891111111/2-0",
+                "3/112345614567892222222/2-1",
+                "4/112345614567893333333/2-2",
+                "5/112345614567894444444/2-3",
+            };
+            File.WriteAllLines(filepath, mapdata);
+        }
+        FileStream fs = new FileStream(filepath, FileMode.Open, FileAccess.Read);
+        //FileStream fs = new FileStream("Assets\\Data\\map.txt", FileMode.Open, FileAccess.Read);
         StreamReader sr = new StreamReader(fs);
 
         Debug.Log("Now Loading stage:");

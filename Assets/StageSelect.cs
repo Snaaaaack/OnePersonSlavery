@@ -22,7 +22,15 @@ public class StageSelect : MonoBehaviour {
 	}
     
     private void LoadClearData() {
-        FileStream fs = new FileStream("Assets\\Data\\level.txt", FileMode.Open, FileAccess.Read);
+        string filepath = Application.persistentDataPath + "/level.txt";
+        if(!File.Exists(filepath)) {
+            string[] leveldata = {
+                "1000000",
+            };
+            File.WriteAllLines(filepath, leveldata);
+        }
+        FileStream fs = new FileStream(filepath, FileMode.Open, FileAccess.Read);
+        //FileStream fs = new FileStream("Assets\\Data\\level.txt", FileMode.Open, FileAccess.Read);
         
         for (int i = 0; i < Data.StageData.Length; i++) {
             Data.StageData[i] = fs.ReadByte() == (byte)'1';
@@ -33,10 +41,10 @@ public class StageSelect : MonoBehaviour {
 
     public void Create(int i) {
         GameObject button = Instantiate(buttonPrefab);
-        button.transform.SetParent(panel.transform);
+        button.transform.SetParent(panel.transform);    
         button.transform.GetChild(0).GetComponent<Text>().text = Data.StageData[i - 1] ? i.ToString() : "X";
         button.transform.name = i.ToString();
         RectTransform rt = button.GetComponent<RectTransform>();
-        rt.anchoredPosition = new Vector2(-300 + 100 * i, 100);
+        rt.anchoredPosition = new Vector2(-600+ 200 * i, 300);
     }
 }
