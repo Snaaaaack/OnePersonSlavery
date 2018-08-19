@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour {
     private GamePlay gp;
     private bool inCollision;
     private int count;
+    List<GameObject> falling;
 
     public GameObject Destination;
 
@@ -27,7 +28,8 @@ public class PlayerController : MonoBehaviour {
         Color playerColor = transform.GetComponent<Renderer>().material.GetColor("_Color");
         transform.GetComponent<Renderer>().material.SetColor("_Color",addColor(tileColor, playerColor));
 
-        collision.gameObject.SetActive(false);
+        Fall(collision.gameObject);
+        //collision.gameObject.SetActive(false);
     }
 
     void FixedUpdate () {
@@ -38,9 +40,12 @@ public class PlayerController : MonoBehaviour {
                 count = 0;
             }
         }
+
+        FallUpdate();
     }
 
     void Start() {
+        falling = new List<GameObject>();
         rb = GetComponent<Rigidbody>();
         rb.AddForce(transform.right * 300);
         map = GameObject.Find("Map").GetComponent<MapRotation>();
@@ -55,7 +60,8 @@ public class PlayerController : MonoBehaviour {
 	}
 
     private void SetDestination() {
-        Destination = GameObject.Find("Area_2").transform.GetChild(0).gameObject;
+        string area = "Area_" + Data.DestArea;
+        Destination = GameObject.Find(area).transform.GetChild(Data.DestTile).gameObject;
     }
 
     private bool IsDestination(Collision c) {
@@ -76,5 +82,31 @@ public class PlayerController : MonoBehaviour {
 
         c.b = 0.5f;
         return c;
+    }
+
+    private void Fall(GameObject tile) {
+        falling.Add(tile);
+    }
+
+    private void FallUpdate() {
+        GameObject remove = null;
+        foreach(GameObject obj in falling) {
+            Vector3 pos = obj.transform.position;
+            Material mat = obj.GetComponent<Transform>().GetChild(0).GetComponent<Renderer>().material;
+            Color c = mat.GetColor("_Color");
+
+            if(c.a <= 0.0f) {
+                obj.SetActive(false);
+                remove = obj;
+                continue;
+            }
+
+            pos.y -= 0.3f;
+            obj.transform.position = pos;
+            c.a -= 0.1f;
+            mat.SetColor("_Color", c);
+        }
+        if(remove != null)
+            falling.Remove(remove);
     }
 }

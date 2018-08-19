@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour {
     public GameObject player;
+    public GameObject ColorIndicator;
     private Vector3 offset;
 
 	void Start () {
@@ -13,6 +14,7 @@ public class CameraController : MonoBehaviour {
     // Update is called once per frame
     void LateUpdate() {
         transform.position = new Vector3(player.transform.position.x, 0, player.transform.position.z) + offset;
+        ColorIndicator.position = trnasform.position;
     }
 
     public void SetCameraToPlayer() { 

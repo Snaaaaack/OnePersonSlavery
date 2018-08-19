@@ -60,9 +60,8 @@ public class MapGenerator : MonoBehaviour {
         for (int i = 0; i < MapSize; i++) 
             MapData[i] = int.Parse(input[1].Substring(i, 1));
         
-        dest.x = int.Parse(input[2].Substring(0, 1));
-        dest.y = int.Parse(input[2].Substring(2, 1));
-
+        Data.DestArea = int.Parse(input[2].Substring(0, 1));
+        Data.DestTile = int.Parse(input[2].Substring(2, 1));
         sr.Close();
         fs.Close();
     } 
