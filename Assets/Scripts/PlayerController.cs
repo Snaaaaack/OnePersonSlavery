@@ -27,10 +27,13 @@ public class PlayerController : MonoBehaviour {
         Color tileColor = collision.gameObject.GetComponent<Transform>().GetChild(0).GetComponent<Renderer>().material.GetColor("_Color");
         Color playerColor = transform.GetComponent<Renderer>().material.GetColor("_Color");
         transform.GetComponent<Renderer>().material.SetColor("_Color",addColor(tileColor, playerColor));
-
-        Fall(collision.gameObject);
-        //collision.gameObject.SetActive(false);
-    }
+		collision.gameObject.GetComponent<MeshCollider>().isTrigger = true;
+		collision.gameObject.GetComponent<Rigidbody>().useGravity = true;
+		collision.gameObject.GetComponent<Rigidbody>().AddForce(new Vector3(0f, -100f, 0f));
+		
+		//Fall(collision.gameObject);
+		//collision.gameObject.SetActive(false);
+	}
 
     void FixedUpdate () {
         if (inCollision) {
@@ -41,7 +44,7 @@ public class PlayerController : MonoBehaviour {
             }
         }
 
-        FallUpdate();
+        //FallUpdate();
     }
 
     void Start() {

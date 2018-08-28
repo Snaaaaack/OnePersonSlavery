@@ -19,10 +19,10 @@ public class MapRotation : MonoBehaviour {
             int dir = touch.position.x < (Screen.width / 2) ? 1 : -1;
             transform.RotateAround(collisionPoint, Vector3.up, 5 * dir);
         }
-        /*
+        
         float moveHorizontal = Input.GetAxis("Horizontal");
         transform.RotateAround(collisionPoint, Vector3.up, 5 * moveHorizontal);
-        */
+        
     }
 
     public void setCollisionPoint(Vector3 Point) {
