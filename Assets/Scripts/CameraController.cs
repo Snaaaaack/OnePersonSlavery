@@ -14,7 +14,8 @@ public class CameraController : MonoBehaviour {
     // Update is called once per frame
     void LateUpdate() {
         transform.position = new Vector3(player.transform.position.x, 0, player.transform.position.z) + offset;
-        ColorIndicator.position = trnasform.position;
+
+		//ColorIndicator.position = trnasform.position;
     }
 
     public void SetCameraToPlayer() { 
