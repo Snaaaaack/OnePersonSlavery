@@ -6,6 +6,7 @@ public static class Data {
     private static int stage;
     private static int destX;
     private static int destY;
+    
     private static bool[] stagedata = new bool[6];
 
     public static int Stage { get { return stage; } set { stage = value; } }

@@ -9,7 +9,16 @@ public class MapGenerator : MonoBehaviour {
     private Color[] ColorIndex;
     private int Stage;
     private Vector2Int dest;
-    // Use this for initialization
+
+    void Awake() {
+        Stage = Data.Stage;
+        MapData = new int[MapSize];
+        InitColor();
+        ParseMap(Stage);
+        ColorMap();
+        HighlightDest();
+    }
+    /*
     void Start() {
         Stage = Data.Stage;
         MapData = new int[MapSize];
@@ -18,11 +27,11 @@ public class MapGenerator : MonoBehaviour {
         ColorMap();
         HighlightDest();
     }
-    
+    */
     void HighlightDest() {
-        Vector3 pos = transform.GetChild(dest.x).GetChild(dest.y).position;
+        Vector3 pos = transform.GetChild(Data.DestArea).GetChild(Data.DestTile).position;
         pos.y = -1;
-        transform.GetChild(dest.x).GetChild(dest.y).position = pos;
+        transform.GetChild(Data.DestArea).GetChild(Data.DestTile).position = pos;
     }
 
     void InitColor() {
